@@ -84,5 +84,8 @@ Route::get('dashbaord', function() {
 //     return view('admin.dashboard');
 // })->name('home');
 
+Route::get('/tracerstudy/data-diri', [TracerStudyController::class, 'dataDiri'])->name('tracerstudy.data-diri');
+Route::post('/tracerstudy/update-profile', [TracerStudyController::class, 'updateProfile'])->name('update_profile');
+
 
 Auth::routes();  // This will register the login and register routes automatically

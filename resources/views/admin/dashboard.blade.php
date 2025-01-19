@@ -3,20 +3,21 @@
 @section('content')
     <div class="container mx-auto px-6 py-12">
         <!-- Logout Button -->
-        <div class="flex justify-end mb-4">
+        <div class="flex justify-end mb-6">
             <form id="logout-form" action="{{ route('logout') }}" method="POST">
                 @csrf
-                <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-lg">
                     Logout
                 </button>
             </form>
         </div>
 
-        <div class="bg-white shadow-lg rounded-xl p-8">
+        <div class="bg-gray-100 shadow-md rounded-lg p-8">
             <!-- Title Section -->
-            <div class="text-center mb-8">
-                <h2 class="text-4xl font-extrabold text-teal-700">Welcome to Admin Dashboard</h2>
-                <p class="mt-4 text-xl text-gray-600">Manage your school data, alumni, and more from the menu on the left.
+            <div class="text-center mb-10">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-800">Selamat Datang di Dashboard Admin</h2>
+                <p class="mt-3 text-lg md:text-xl text-gray-600">
+                    Kelola data sekolah, alumni, dan berbagai fitur lainnya dengan mudah.
                 </p>
             </div>
 
@@ -24,8 +25,8 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Card 1: School Data -->
                 <div
-                    class="bg-teal-100 shadow-lg rounded-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl">
-                    <div class="bg-teal-600 text-white p-6">
+                    class="bg-blue-50 shadow-lg rounded-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+                    <div class="bg-blue-600 text-white p-6">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -33,17 +34,17 @@
                         </svg>
                     </div>
                     <div class="p-6">
-                        <h3 class="text-2xl font-semibold text-teal-700">School Data</h3>
-                        <p class="text-gray-600 mt-4">Manage your school’s essential data like departments, programs, and
-                            more.</p>
-                        <a href="#" class="mt-4 block text-teal-600 hover:underline">Manage School Data</a>
+                        <h3 class="text-2xl font-semibold text-blue-700">Data Sekolah</h3>
+                        <p class="text-gray-600 mt-4">Kelola data penting seperti bidang, program, dan konsentrasi keahlian.
+                        </p>
+                        <a href="#" class="mt-4 block text-blue-600 hover:underline">Kelola Data Sekolah</a>
                     </div>
                 </div>
 
                 <!-- Card 2: Alumni -->
                 <div
-                    class="bg-indigo-100 shadow-lg rounded-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl">
-                    <div class="bg-indigo-600 text-white p-6">
+                    class="bg-green-50 shadow-lg rounded-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+                    <div class="bg-green-600 text-white p-6">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -51,17 +52,16 @@
                         </svg>
                     </div>
                     <div class="p-6">
-                        <h3 class="text-2xl font-semibold text-indigo-700">Alumni Management</h3>
-                        <p class="text-gray-600 mt-4">Keep track of alumni details, statuses, and networking opportunities.
-                        </p>
-                        <a href="#" class="mt-4 block text-indigo-600 hover:underline">Manage Alumni</a>
+                        <h3 class="text-2xl font-semibold text-green-700">Manajemen Alumni</h3>
+                        <p class="text-gray-600 mt-4">Lacak detail alumni, status, dan peluang jaringan.</p>
+                        <a href="#" class="mt-4 block text-green-600 hover:underline">Kelola Alumni</a>
                     </div>
                 </div>
 
                 <!-- Card 3: Reports -->
                 <div
-                    class="bg-purple-100 shadow-lg rounded-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl">
-                    <div class="bg-purple-600 text-white p-6">
+                    class="bg-yellow-50 shadow-lg rounded-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+                    <div class="bg-yellow-600 text-white p-6">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -69,13 +69,12 @@
                         </svg>
                     </div>
                     <div class="p-6">
-                        <h3 class="text-2xl font-semibold text-purple-700">Reports</h3>
-                        <p class="text-gray-600 mt-4">View detailed reports about alumni, career progress, and more.</p>
-                        <a href="#" class="mt-4 block text-purple-600 hover:underline">View Reports</a>
+                        <h3 class="text-2xl font-semibold text-yellow-700">Laporan</h3>
+                        <p class="text-gray-600 mt-4">Lihat laporan detail terkait alumni, karier, dan lainnya.</p>
+                        <a href="#" class="mt-4 block text-yellow-600 hover:underline">Lihat Laporan</a>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 @endsection

@@ -30,9 +30,9 @@
                                 <td class="px-6 py-4 text-sm text-gray-800 font-medium">
                                     {{ $program->kode_program_keahlian }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-800 font-medium">
-                                    {{ $program->nama_program ?? 'Nama program tidak tersedia' }}</td>
+                                    {{ $program->program_keahlian }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-800 font-medium">
-                                    {{ $program->bidangKeahlian->nama_bidang ?? 'Bidang keahlian tidak tersedia' }}</td>
+                                    {{ $program->bidangKeahlian->bidang_keahlian }}</td>
                                 <td class="px-6 py-4 text-center">
                                     <!-- Edit Button -->
                                     <a href="{{ route('admin.program-keahlian.edit', $program->id_program_keahlian) }}"

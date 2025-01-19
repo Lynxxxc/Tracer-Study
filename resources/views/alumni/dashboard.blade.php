@@ -59,7 +59,9 @@
                     <h3 class="text-2xl font-semibold text-blue-700">Data Diri</h3>
                     <p class="text-gray-800 mt-4">Perbarui informasi diri Anda untuk tetap terhubung dengan jaringan
                         alumni kami.</p>
-                    <a href="#" class="mt-4 block text-blue-600 hover:underline">Kelola Data Diri</a>
+                    <a href="{{ route('tracerstudy.data-diri') }}"
+                        class="mt-4 block text-blue-600 hover:underline">Kelola
+                        Data Diri</a>
                 </div>
             </div>
 

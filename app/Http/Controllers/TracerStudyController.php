@@ -12,6 +12,41 @@ use App\Models\KonsentrasiKeahlian;
 
 class TracerStudyController extends Controller
 {
+
+    public function dataDiri()
+    {
+        return view('tracerstudy.data-diri'); // pastikan file view ada di resources/views/tracerstudy/data-diri.blade.php
+    }
+
+    // Menangani permintaan untuk memperbarui profil
+    public function updateProfile(Request $request)
+    {
+        // Validasi data yang diterima
+        $validatedData = $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
+            'phone_number' => 'required|string|max:20',
+            'email' => 'required|email|max:255',
+        ]);
+
+        // Mengambil data pengguna yang sedang login
+        $user = auth()->user();
+
+        // Memperbarui data pengguna
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->address = $request->address;
+        $user->phone_number = $request->phone_number;
+        $user->email = $request->email;
+
+        // Menyimpan perubahan
+        $user->save();
+
+        // Mengembalikan ke halaman data diri dengan pesan sukses
+        return redirect()->route('tracerstudy.data-diri')->with('status', 'Data berhasil diperbarui');
+    }
+
     public function create()
     {
         // Ambil data tahun lulus
