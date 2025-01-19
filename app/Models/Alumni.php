@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Alumni extends Authenticatable
@@ -16,6 +17,8 @@ class Alumni extends Authenticatable
     public $incrementing = true;
 
     protected $fillable = [
+
+        'user_id',
         'nisn',
         'nik',
         'nama_depan',
@@ -36,6 +39,11 @@ class Alumni extends Authenticatable
         'id_status_alumni', 
         'remember_token'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     // Relasi ke tabel tbl_status_alumni
     public function status()

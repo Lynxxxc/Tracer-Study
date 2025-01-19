@@ -16,11 +16,39 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('role')->default('alumni');
             $table->string('password');
+            $table->boolean('isadmin')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });
+
+        // Tambahkan data default ke tabel users
+        DB::table('users')->insert([
+            [
+                'name' => 'admin',
+                'email' => 'admin@gmail.com',
+                'password' => Hash::make('password'), // Hash password untuk keamanan
+                'isadmin' => 1, // Admin
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Alumni 1',
+                'email' => 'alumni1@gmail.com',
+                'password' => Hash::make('password'), // Hash password untuk keamanan
+                'isadmin' => 0, // Alumni
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Alumni 2',
+                'email' => 'alumni2@gmail.com',
+                'password' => Hash::make('password'), // Hash password untuk keamanan
+                'isadmin' => 0, // Alumni
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ]);
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();

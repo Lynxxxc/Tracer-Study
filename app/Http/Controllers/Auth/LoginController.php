@@ -23,11 +23,26 @@ class LoginController extends Controller
             'password' => 'required|min:6',
         ]);
 
-        if (auth()->attempt($request->only('email', 'password'))) {
-            return redirect()->intended(route('dashboard'));
+        if (Auth::attempt($request->only('email', 'password'))) {
+            $user = Auth::user();
+    
+            // Periksa apakah pengguna adalah alumni
+            if (!$user->isadmin) {
+                return redirect()->route('tracerstudy.dashboard');
+            } elseif ($user->isadmin) {
+                return redirect()->route('admin.dashboard');
+            }
+    
+        // Jika bukan admin atau alumni
+            Auth::logout();
+            return back()->withErrors([
+                'email' => 'Akun tidak valid.',
+            ]);
         }
 
-        return back()->withErrors(['email' => 'Email atau password salah.']);
+        return back()->withErrors([
+            'email' => 'Email atau password salah.',
+        ]);
     }
 
     // Menangani logout

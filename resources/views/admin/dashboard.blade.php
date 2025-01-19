@@ -4,7 +4,7 @@
     <div class="container mx-auto px-6 py-12">
         <!-- Logout Button -->
         <div class="flex justify-end mb-4">
-            <form id="logout-form" action="{{ route('admin.logout') }}" method="POST">
+            <form id="logout-form" action="{{ route('logout') }}" method="POST">
                 @csrf
                 <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                     Logout

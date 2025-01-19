@@ -18,9 +18,9 @@
 
                 <!-- Name -->
                 <div>
-                    <label for="name" class="block text-gray-700 font-medium">Nama Lengkap</label>
+                    <label for="name" class="block text-gray-700 font-medium">Nama</label>
                     <input type="text" name="name" id="name"
-                        class="w-full p-3 border border-gray-300 rounded-md" placeholder="Masukkan nama lengkap"
+                        class="w-full p-3 border border-gray-300 rounded-md" placeholder="Masukkan nama"
                         required value="{{ old('name') }}">
                     @error('name')
                         <p class="text-red-500 text-sm">{{ $message }}</p>

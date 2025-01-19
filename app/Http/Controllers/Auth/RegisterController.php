@@ -44,6 +44,6 @@ class RegisterController extends Controller
         auth()->login($user);
 
         // Redirect ke halaman setelah berhasil mendaftar
-        return redirect()->route('auth.login'); // Ganti 'home' sesuai dengan rute yang ingin diarahkan
+        return redirect()->route('login'); // Ganti 'home' sesuai dengan rute yang ingin diarahkan
     }
 }

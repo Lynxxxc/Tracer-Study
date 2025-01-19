@@ -44,8 +44,6 @@ class TracerStudyController extends Controller
             'tgl_lahir' => 'required|date',
             'alamat' => 'required|string|max:50',
             'no_hp' => 'required|string|max:15',
-            'email' => 'required|string|email|max:50',
-            'password' => 'required|string|min:6',
 
             // Tracer Kuliah fields
             'tracer_kuliah_kampus' => 'required|string|max:255',
@@ -68,6 +66,7 @@ class TracerStudyController extends Controller
 
         // Simpan data alumni
         $alumni = Alumni::create([
+            'user_id' => auth()->user()->id,
             'nisn' => $request->nisn,
             'nik' => $request->nik,
             'nama_depan' => $request->nama_depan,
@@ -80,9 +79,6 @@ class TracerStudyController extends Controller
             'id_status_alumni' => $request->id_status_alumni,
             'alamat' => $request->alamat,
             'no_hp' => $request->no_hp,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),  // Enkripsi password
-            'status_login' => '0',
         ]);
 
         // Simpan data tracer kuliah

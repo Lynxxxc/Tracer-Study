@@ -3,7 +3,7 @@
 @section('content')
     <div class="container mx-auto py-8">
         <div class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-lg">
-            <h2 class="text-3xl font-semibold text-center mb-6 text-gray-900">Formulir Pendaftaran Alumni</h2>
+            <h2 class="text-3xl font-semibold text-center mb-6 text-gray-900">Form Pendaftaran Tracer Study</h2>
 
             <!-- Menampilkan Error Message jika ada error -->
             @if ($errors->any())
@@ -86,28 +86,6 @@
                         <input type="text" id="no_hp" name="no_hp"
                             class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                             value="{{ old('no_hp') }}" required>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                        <input type="email" id="email" name="email"
-                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                            value="{{ old('email') }}" required>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                        <input type="password" id="password" name="password"
-                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                            required>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Konfirmasi
-                            Password</label>
-                        <input type="password" id="password_confirmation" name="password_confirmation"
-                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                            required>
                     </div>
 
                     <div class="mb-4">

@@ -12,8 +12,8 @@ class CheckAlumni
     {
 
         // Cek apakah pengguna login sebagai alumni
-        if (!Auth::guard('alumni')->check()) {
-            return redirect('/login')->withErrors(['message' => 'Anda harus login sebagai alumni.']);
+        if (auth()->check() && auth()->user()->alumni) {
+            return $next($request);
         }
 
         return $next($request);

@@ -18,14 +18,14 @@
                 @if (Auth::check())
                     <!-- Jika pengguna sudah login -->
                     <a href="#" class="hover:text-teal-300 text-black text-lg">{{ Auth::user()->nama_depan }}</a>
-                    <a href="{{ route('tracerstudy.logout') }}" class="hover:text-teal-300 text-lg text-black"
+                    <a href="{{ route('logout') }}" class="hover:text-teal-300 text-lg text-black"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Keluar</a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
                         @csrf
                     </form>
                 @else
                     <!-- Jika pengguna belum login -->
-                    <a href="tracer-study/login" class="text-black hover:text-teal-300 text-lg">LOGGG</a>
+                    <a href="{{ route('login') }}" class="text-black hover:text-teal-300 text-lg">LOGGG</a>
                 @endif
             </div>
         </div>

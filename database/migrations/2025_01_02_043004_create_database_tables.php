@@ -74,6 +74,7 @@ class CreateDatabaseTables extends Migration
         // Table: tbl_alumni
         Schema::create('tbl_alumni', function (Blueprint $table) {
             $table->id('id_alumni');
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('id_tahun_lulus');
             $table->unsignedBigInteger('id_konsentrasi_keahlian');
             $table->unsignedBigInteger('id_status_alumni');
@@ -89,11 +90,9 @@ class CreateDatabaseTables extends Migration
             $table->string('akun_fb', 50)->nullable();
             $table->string('akun_ig', 50)->nullable();
             $table->string('akun_tiktok', 50)->nullable();
-            $table->string('email', 50);
-            $table->longText('password');
-            $table->enum('status_login', ['0', '1']);
             $table->timestamps();
 
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('id_tahun_lulus')->references('id_tahun_lulus')->on('tbl_tahun_lulus')->onDelete('cascade');
             $table->foreign('id_konsentrasi_keahlian')->references('id_konsentrasi_keahlian')->on('tbl_konsentrasi_keahlian')->onDelete('cascade');
             $table->foreign('id_status_alumni')->references('id_status_alumni')->on('tbl_status_alumni')->onDelete('cascade');
