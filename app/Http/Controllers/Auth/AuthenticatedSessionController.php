@@ -36,6 +36,8 @@ class AuthenticatedSessionController extends Controller
         // Periksa apakah user ditemukan dan password cocok
         if ($user && Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $request->session()->regenerate(); // Regenerate session untuk keamanan
+
+            Auth::guard('web')->user()->update(['status_login' => true]);
             
             // Debugging
             // \Log::info('User logged in: ', ['email' => $user->email, 'role' => $user->role]);
@@ -59,6 +61,8 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
+        Auth::guard('web')->user()->update(['status_login' => false]);
+
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();

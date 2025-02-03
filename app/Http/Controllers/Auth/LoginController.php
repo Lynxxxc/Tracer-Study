@@ -25,9 +25,13 @@ class LoginController extends Controller
 
         if (Auth::attempt($request->only('email', 'password'))) {
             $user = Auth::user();
+
+        
+
     
             // Periksa apakah pengguna adalah alumni
             if (!$user->isadmin) {
+                $user->alumni->update(['status_login' => true]);
                 $request->session()->flash('status', 'Anda telah berhasil login.');
                 return redirect('/dashboard');
             } elseif ($user->isadmin) {
@@ -58,6 +62,9 @@ class LoginController extends Controller
     // Menangani logout
     public function logout(Request $request)
 {
+    if(!Auth::user()->isAdmin){
+        Auth::user()->alumni->update(['status_login' => false]);
+    }
     Auth::logout(); // Pastikan menggunakan facade Auth
     $request->session()->invalidate(); // Menghapus session yang aktif
     $request->session()->regenerateToken(); // Menghasilkan token CSRF baru

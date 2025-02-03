@@ -28,7 +28,7 @@ class AlumniTestimoniController extends Controller
 
         // Simpan testimoni baru
         Testimoni::create([
-            'id_alumni' => Auth::id(),
+            'id_alumni' => Auth::user()->alumni->id_alumni,
             'testimoni' => $request->testimoni,
             'tgl_testimoni' => now(),
         ]);
