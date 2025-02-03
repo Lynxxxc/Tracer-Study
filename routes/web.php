@@ -3,8 +3,10 @@
 use App\Http\Middleware\CheckAdmin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AlumniTestimoniController;
 use App\Http\Controllers\admin\AuthController;
 use App\Http\Controllers\AlumniAuthController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TracerStudyController;
 use App\Http\Controllers\Admin\AlumniController;
 use App\Http\Controllers\Admin\SekolahController;
@@ -63,21 +65,30 @@ Route::prefix('admin')->name('admin.')->middleware(CheckAdmin::class)->group(fun
     Route::get('alumni/{id_alumni}/edit', [AlumniController::class, 'edit'])->name('alumni.edit');
     Route::put('alumni/{id_alumni}', [AlumniController::class, 'update'])->name('alumni.update');
 });
+Route::get('admin/alumni/{id_alumni}', [AlumniController::class, 'show'])->name('admin.alumni.show');
+
+
+// Redirect root URL to /dashboard
+Route::get('/', function () {
+    return redirect('/dashboard'); // Redirect to the dashboard
+});
 
 // route alumni
 
-
 Route::prefix('')->name('tracerstudy.')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('alumni.dashboard');
-    })->name('dashboard');
+    // Route::get('/dashboard', function () {
+    //     return view('alumni.dashboard');
+    // })->name('dashboard');
+
+    Route::get('/dashboard', [TracerStudyController::class, 'dashboard'])->name('dashboard');
 
     Route::get('/tracer-study/form', [TracerStudyController::class, 'create'])->name('form');
     // Route::get('/register', [TracerStudyController::class, 'create'])->name('register');
     Route::post('/tracer-study', [TracerStudyController::class, 'store'])->name('store');
 });
+Route::get('/dashboard', [TracerStudyController::class, 'dashboard'])->name('dashboard');
 
-Route::get('dashbaord', function() {
+Route::get('dashboard', function() {
     return view('alumni.dashboard');
 })->name('welcome');
 // Route::get('admin/dashboard', function() {
@@ -85,7 +96,21 @@ Route::get('dashbaord', function() {
 // })->name('home');
 
 Route::get('/tracerstudy/data-diri', [TracerStudyController::class, 'dataDiri'])->name('tracerstudy.data-diri');
-Route::post('/tracerstudy/update-profile', [TracerStudyController::class, 'updateProfile'])->name('update_profile');
+Route::post('/tracerstudy/update-profile', [TracerStudyController::class, 'updateProfile'])->name('update-profile');
 
+// Route untuk halaman pengisian testimoni (user)
+Route::get('/testimoni', [AlumniTestimoniController::class, 'index'])->middleware('auth')->name('testimoni.index');
+Route::get('/testimoni/create', [AlumniTestimoniController::class, 'create'])->middleware('auth')->name('testimoni.create');
+Route::post('/testimoni/store', [AlumniTestimoniController::class, 'store'])->middleware('auth')->name('testimoni.store');
+Route::get('/testimoni/{id}/edit', [AlumniTestimoniController::class, 'edit'])->middleware('auth')->name('testimoni.edit');
+Route::put('/testimoni/{id}', [AlumniTestimoniController::class, 'update'])->middleware('auth')->name('testimoni.update');
+Route::delete('/testimoni/{id}', [AlumniTestimoniController::class, 'destroy'])->middleware('auth')->name('testimoni.destroy');
+Route::get('/dashboard', [AlumniTestimoniController::class, 'dashboard'])->name('alumni.dashboard');
+
+Route::get('/data_diri', [ProfileController::class, 'show'])->middleware('auth')->name('profile.show');
+Route::post('/data_diri/update', [ProfileController::class, 'update'])->middleware('auth')->name('profile.update');
+
+Route::get('/data-diri', [ProfileController::class, 'dataDiri'])->name('tracerstudy.data_diri');
+Route::post('/update-profile', [ProfileController::class, 'updateProfile'])->name('update_profile');
 
 Auth::routes();  // This will register the login and register routes automatically

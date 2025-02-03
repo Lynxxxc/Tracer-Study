@@ -28,9 +28,18 @@ class LoginController extends Controller
     
             // Periksa apakah pengguna adalah alumni
             if (!$user->isadmin) {
-                return redirect()->route('tracerstudy.dashboard');
+                $request->session()->flash('status', 'Anda telah berhasil login.');
+                return redirect('/dashboard');
             } elseif ($user->isadmin) {
                 return redirect()->route('admin.dashboard');
+            }
+
+            $credentials = $request->only('email', 'password');
+            if (Auth::attempt($credentials)) {
+                // Update last_login_at
+                Auth::user()->update(['last_login_at' => now()]);
+
+                return redirect()->intended('dashboard');
             }
     
         // Jika bukan admin atau alumni
@@ -40,6 +49,7 @@ class LoginController extends Controller
             ]);
         }
 
+
         return back()->withErrors([
             'email' => 'Email atau password salah.',
         ]);
@@ -47,11 +57,15 @@ class LoginController extends Controller
 
     // Menangani logout
     public function logout(Request $request)
-    {
-        Auth::logout(); // Pastikan menggunakan facade Auth
-        $request->session()->invalidate(); // Menghapus session yang aktif
-        $request->session()->regenerateToken(); // Menghasilkan token CSRF baru
+{
+    Auth::logout(); // Pastikan menggunakan facade Auth
+    $request->session()->invalidate(); // Menghapus session yang aktif
+    $request->session()->regenerateToken(); // Menghasilkan token CSRF baru
 
-        return redirect()->route('welcome'); // Arahkan ke halaman welcome setelah logout
-    }
+    // Menyimpan pesan flash untuk ditampilkan setelah redirect
+    $request->session()->flash('status', 'Anda telah berhasil logout.');
+
+    return redirect('/dashboard'); // Arahkan ke halaman dashboard setelah logout
+}
+
 }

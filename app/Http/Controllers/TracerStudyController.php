@@ -9,63 +9,101 @@ use App\Models\StatusAlumni;
 use App\Models\TracerKuliah;
 use Illuminate\Http\Request;
 use App\Models\KonsentrasiKeahlian;
+use Illuminate\Support\Facades\Auth;
+use App\Models\TracerStudy;
 
 class TracerStudyController extends Controller
 {
-
+    // Show the user's data
     public function dataDiri()
     {
-        return view('tracerstudy.data-diri'); // pastikan file view ada di resources/views/tracerstudy/data-diri.blade.php
+        $user = auth()->user();
+        $alumni = Alumni::where('user_id', $user->id)->first();
+    
+        // Jika belum mengisi Tracer Study, tampilkan SweetAlert
+        if (!$alumni) {
+            return redirect()->route('alumni.dashboard')->with('warning','Isi Tracer Study Dulu Yaaa');
+        }
+
+        $user = auth()->user();
+        $alumni = Alumni::where('user_id', $user->id)->first();
+        return view('tracerstudy.data_diri', compact('alumni'));
     }
 
-    // Menangani permintaan untuk memperbarui profil
+    // Handle profile updates
     public function updateProfile(Request $request)
     {
-        // Validasi data yang diterima
+    
         $validatedData = $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'address' => 'required|string|max:255',
-            'phone_number' => 'required|string|max:20',
-            'email' => 'required|email|max:255',
+            'nama_depan' => 'required|string|max:255',
+            'nama_belakang' => 'required|string|max:255',
+            'alamat' => 'required|string|max:255',
+            'no_hp' => 'required|string|max:20',
+            
         ]);
+    
+        // Update data alumni
+        $alumni->update([
+            'nama_depan' => $request->nama_depan,
+            'nama_belakang' => $request->nama_belakang,
+            'alamat' => $request->almat,
+            'no_hp' => $request->no_hp,
+            
+        ]);
+    
+        return redirect()->route('tracerstudy.data_diri')->with('status', 'Data berhasil diperbarui');
+    }    
 
-        // Mengambil data pengguna yang sedang login
-        $user = auth()->user();
-
-        // Memperbarui data pengguna
-        $user->first_name = $request->first_name;
-        $user->last_name = $request->last_name;
-        $user->address = $request->address;
-        $user->phone_number = $request->phone_number;
-        $user->email = $request->email;
-
-        // Menyimpan perubahan
-        $user->save();
-
-        // Mengembalikan ke halaman data diri dengan pesan sukses
-        return redirect()->route('tracerstudy.data-diri')->with('status', 'Data berhasil diperbarui');
-    }
-
+    // Show the form for tracer study registration
     public function create()
     {
-        // Ambil data tahun lulus
+	$user = auth()->user();
+	//cek alumni
+	$alumni = Alumni::where('user_id', $user->id)->first();
+	if($alumni) {
+		return redirect()->route('alumni.dashboard')->with('tracer_study_filled', true);
+    }
         $years = TahunLulus::all();
-
-        // Ambil data status alumni
         $statuses = StatusAlumni::all();
-
-        // Ambil data konsentrasi keahlian
         $concentrations = KonsentrasiKeahlian::all();
-
-        // Kirim data ke view
+        
         return view('tracerstudy.register', compact('years', 'statuses', 'concentrations'));
     }
 
-    public function store(Request $request)
+        public function checkDataDiri()
     {
-        // Validasi data yang masuk
-        $request->validate([
+        $user = auth()->user();
+        $alumni = Alumni::where('user_id', $user->id)->first();
+
+        return response()->json([
+            'hasDataDiri' => $alumni ? true : false
+        ]);
+    }
+
+    // Show the user data if logged in
+    public function show()
+    {
+        if (!auth()->check()) {
+            return redirect()->route('login');
+        }
+
+        $user = auth()->user();
+        return view('tracerstudy.data_diri', compact('user'));
+    }
+
+    // Store tracer study data
+        public function store(Request $request)
+    {
+        $user = Auth::user();  // Get the currently authenticated user
+
+        // Check if the user has already filled out the form
+        $existingTracerStudy = TracerStudy::where('id_alumni', $user->id)->first();
+        if ($existingTracerStudy) {
+            return redirect()->route('alumni.dashboard')->with('status', 'Anda sudah mengisi form Tracer Study.');
+        }
+
+        // Validate incoming data
+        $validatedData = $request->validate([
             // Alumni fields
             'nisn' => 'required|string|max:20',
             'nik' => 'required|string|max:20',
@@ -79,6 +117,11 @@ class TracerStudyController extends Controller
             'tgl_lahir' => 'required|date',
             'alamat' => 'required|string|max:50',
             'no_hp' => 'required|string|max:15',
+
+            // Sosial Media fields (optional)
+            'akun_ig' => 'nullable|string|max:255',
+            'akun_fb' => 'nullable|string|max:255',
+            'akun_tiktok' => 'nullable|string|max:255',
 
             // Tracer Kuliah fields
             'tracer_kuliah_kampus' => 'required|string|max:255',
@@ -99,9 +142,9 @@ class TracerStudyController extends Controller
             'tracer_kerja_gaji' => 'required|string|max:255',
         ]);
 
-        // Simpan data alumni
+        // Save alumni data
         $alumni = Alumni::create([
-            'user_id' => auth()->user()->id,
+            'user_id' => $user->id,  // Use the ID of the logged-in user
             'nisn' => $request->nisn,
             'nik' => $request->nik,
             'nama_depan' => $request->nama_depan,
@@ -114,11 +157,14 @@ class TracerStudyController extends Controller
             'id_status_alumni' => $request->id_status_alumni,
             'alamat' => $request->alamat,
             'no_hp' => $request->no_hp,
+            'akun_ig' => $request->akun_ig,
+            'akun_fb' => $request->akun_fb,
+            'akun_tiktok' => $request->akun_tiktok,
         ]);
 
-        // Simpan data tracer kuliah
-        $tracerKuliah = TracerKuliah::create([
-            'id_alumni' => $alumni->id_alumni,
+        // Save tracer kuliah data
+        TracerKuliah::create([
+            'id_alumni' => $alumni->id_alumni,  // Use the ID of the newly created alumni
             'tracer_kuliah_kampus' => $request->tracer_kuliah_kampus,
             'tracer_kuliah_status' => $request->tracer_kuliah_status,
             'tracer_kuliah_jenjang' => $request->tracer_kuliah_jenjang,
@@ -127,9 +173,9 @@ class TracerStudyController extends Controller
             'tracer_kuliah_alamat' => $request->tracer_kuliah_alamat,
         ]);
 
-        // Simpan data tracer kerja
-        $tracerKerja = TracerKerja::create([
-            'id_alumni' => $alumni->id_alumni,
+        // Save tracer kerja data
+        TracerKerja::create([
+            'id_alumni' => $alumni->id_alumni,  // Use the ID of the newly created alumni
             'tracer_kerja_pekerjaan' => $request->tracer_kerja_pekerjaan,
             'tracer_kerja_nama' => $request->tracer_kerja_nama,
             'tracer_kerja_jabatan' => $request->tracer_kerja_jabatan,
@@ -140,7 +186,6 @@ class TracerStudyController extends Controller
             'tracer_kerja_gaji' => $request->tracer_kerja_gaji,
         ]);
 
-        // Redirect dengan pesan sukses
-        return redirect()->route('tracerstudy.dashboard')->with('success', 'Pendaftaran alumni berhasil!');
-    }
+        return redirect()->route('alumni.dashboard')->with('success', 'Pendaftaran alumni berhasil!');
+}  
 }

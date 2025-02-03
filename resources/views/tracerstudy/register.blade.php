@@ -1,9 +1,9 @@
 @extends('tracerstudy.layouts')
 
 @section('content')
-    <div class="container mx-auto py-8">
-        <div class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-lg">
-            <h2 class="text-3xl font-semibold text-center mb-6 text-gray-900">Form Pendaftaran Tracer Study</h2>
+    <div class="container mx-auto py-12">
+        <div class="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-lg">
+            <h2 class="text-4xl font-semibold text-center mb-8 text-gray-900">Form Pendaftaran Tracer Study</h2>
 
             <!-- Menampilkan Error Message jika ada error -->
             @if ($errors->any())
@@ -20,235 +20,220 @@
                 @csrf
                 <div class="space-y-6">
 
-                    <div class="mb-4">
-                        <label for="nisn" class="block text-sm font-medium text-gray-700">NISN</label>
-                        <input type="text" id="nisn" name="nisn"
-                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                            value="{{ old('nisn') }}" required>
+                    <!-- Alumni Data -->
+                    <h3 class="text-2xl font-semibold text-gray-800">Data Alumni</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="form-group">
+                            <label for="nisn" class="text-sm font-medium text-gray-600">NISN</label>
+                            <input type="text" name="nisn" id="nisn"
+                                class="w-full p-3 border border-gray-300 rounded-md" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nik" class="text-sm font-medium text-gray-600">NIK</label>
+                            <input type="text" name="nik" id="nik"
+                                class="w-full p-3 border border-gray-300 rounded-md" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nama_depan" class="text-sm font-medium text-gray-600">Nama Depan</label>
+                            <input type="text" name="nama_depan" id="nama_depan"
+                                class="w-full p-3 border border-gray-300 rounded-md" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nama_belakang" class="text-sm font-medium text-gray-600">Nama Belakang</label>
+                            <input type="text" name="nama_belakang" id="nama_belakang"
+                                class="w-full p-3 border border-gray-300 rounded-md" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="jenis_kelamin" class="text-sm font-medium text-gray-600">Jenis Kelamin</label>
+                            <select name="jenis_kelamin" id="jenis_kelamin"
+                                class="w-full p-3 border border-gray-300 rounded-md" required>
+                                <option value="Laki-laki">Laki-laki</option>
+                                <option value="Perempuan">Perempuan</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label for="id_tahun_lulus" class="block text-sm font-medium text-gray-700">Tahun Lulus</label>
+                            <select name="id_tahun_lulus" id="id_tahun_lulus"
+                                class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                                required>
+                                @forelse ($years as $year)
+                                    <option value="{{ $year->id_tahun_lulus }}"
+                                        {{ old('id_tahun_lulus') == $year->id_tahun_lulus ? 'selected' : '' }}>
+                                        {{ $year->tahun_lulus }}</option>
+                                @empty
+                                    <option value="">Tidak ada data tahun lulus</option>
+                                @endforelse
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label for="konsentrasi_keahlian" class="block text-sm font-medium text-gray-700">Konsentrasi
+                                Keahlian</label>
+                            <select name="id_konsentrasi_keahlian" id="id_konsentrasi_keahlian"
+                                class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                                required>
+                                @forelse ($concentrations as $c)
+                                    <option value="{{ $c->id_konsentrasi_keahlian }}"
+                                        {{ old('id_konsentrasi_keahlian') == $c->id_konsentrasi_keahlian ? 'selected' : '' }}>
+                                        {{ $c->konsentrasi_keahlian }}</option>
+                                @empty
+                                    <option value="">Tidak ada data tahun lulus</option>
+                                @endforelse
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label for="id_status_alumni" class="block text-sm font-medium text-gray-700">Status
+                                Alumni</label>
+                            <select name="id_status_alumni" id="id_status_alumni"
+                                class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                                required>
+                                @forelse ($statuses as $s)
+                                    <option value="{{ $s->id_status_alumni }}"
+                                        {{ old('id_status_alumni') == $s->id_status_alumni ? 'selected' : '' }}>
+                                        {{ $s->status }}</option>
+                                @empty
+                                    <option value="">Tidak ada data tahun lulus</option>
+                                @endforelse
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="tempat_lahir" class="text-sm font-medium text-gray-600">Tempat Lahir</label>
+                            <input type="text" name="tempat_lahir" id="tempat_lahir"
+                                class="w-full p-3 border border-gray-300 rounded-md" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tgl_lahir" class="text-sm font-medium text-gray-600">Tanggal Lahir</label>
+                            <input type="date" name="tgl_lahir" id="tgl_lahir"
+                                class="w-full p-3 border border-gray-300 rounded-md" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="alamat" class="text-sm font-medium text-gray-600">Alamat</label>
+                            <input type="text" name="alamat" id="alamat"
+                                class="w-full p-3 border border-gray-300 rounded-md" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="no_hp" class="text-sm font-medium text-gray-600">No HP</label>
+                            <input type="text" name="no_hp" id="no_hp"
+                                class="w-full p-3 border border-gray-300 rounded-md" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="akun_ig" class="text-sm font-medium text-gray-600">Akun Instagram</label>
+                            <input type="text" name="akun_ig" id="akun_ig"
+                                class="w-full p-3 border border-gray-300 rounded-md">
+                        </div>
+                        <div class="form-group">
+                            <label for="akun_fb" class="text-sm font-medium text-gray-600">Akun Facebook</label>
+                            <input type="text" name="akun_fb" id="akun_fb"
+                                class="w-full p-3 border border-gray-300 rounded-md">
+                        </div>
+                        <div class="form-group">
+                            <label for="akun_tiktok" class="text-sm font-medium text-gray-600">Akun TikTok</label>
+                            <input type="text" name="akun_tiktok" id="akun_tiktok"
+                                class="w-full p-3 border border-gray-300 rounded-md">
+                        </div>
                     </div>
 
-                    <div class="mb-4">
-                        <label for="nik" class="block text-sm font-medium text-gray-700">NIK</label>
-                        <input type="text" id="nik" name="nik"
-                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                            value="{{ old('nik') }}" required>
+                    <!-- Tracer Kuliah Data -->
+                    <h3 class="text-2xl font-semibold text-gray-800 mt-8">Tracer Kuliah</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="form-group">
+                            <label for="tracer_kuliah_kampus" class="text-sm font-medium text-gray-600">Nama
+                                Kampus</label>
+                            <input type="text" name="tracer_kuliah_kampus" id="tracer_kuliah_kampus"
+                                class="w-full p-3 border border-gray-300 rounded-md" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tracer_kuliah_status" class="text-sm font-medium text-gray-600">Status
+                                Kuliah</label>
+                            <input type="text" name="tracer_kuliah_status" id="tracer_kuliah_status"
+                                class="w-full p-3 border border-gray-300 rounded-md" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tracer_kuliah_jenjang" class="text-sm font-medium text-gray-600">Jenjang
+                                Pendidikan</label>
+                            <input type="text" name="tracer_kuliah_jenjang" id="tracer_kuliah_jenjang"
+                                class="w-full p-3 border border-gray-300 rounded-md" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tracer_kuliah_jurusan" class="text-sm font-medium text-gray-600">Jurusan</label>
+                            <input type="text" name="tracer_kuliah_jurusan" id="tracer_kuliah_jurusan"
+                                class="w-full p-3 border border-gray-300 rounded-md" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tracer_kuliah_linier" class="text-sm font-medium text-gray-600">Linier</label>
+                            <input type="text" name="tracer_kuliah_linier" id="tracer_kuliah_linier"
+                                class="w-full p-3 border border-gray-300 rounded-md" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tracer_kuliah_alamat" class="text-sm font-medium text-gray-600">Alamat
+                                Kampus</label>
+                            <input type="text" name="tracer_kuliah_alamat" id="tracer_kuliah_alamat"
+                                class="w-full p-3 border border-gray-300 rounded-md" required>
+                        </div>
                     </div>
 
-                    <div class="mb-4">
-                        <label for="nama_depan" class="block text-sm font-medium text-gray-700">Nama Depan</label>
-                        <input type="text" id="nama_depan" name="nama_depan"
-                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                            value="{{ old('nama_depan') }}" required>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="nama_belakang" class="block text-sm font-medium text-gray-700">Nama Belakang</label>
-                        <input type="text" id="nama_belakang" name="nama_belakang"
-                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                            value="{{ old('nama_belakang') }}" required>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="jenis_kelamin" class="block text-sm font-medium text-gray-700">Jenis Kelamin</label>
-                        <select id="jenis_kelamin" name="jenis_kelamin"
-                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                            required>
-                            <option value="Laki-laki" {{ old('jenis_kelamin') == 'Laki-laki' ? 'selected' : '' }}>Laki-laki
-                            </option>
-                            <option value="Perempuan" {{ old('jenis_kelamin') == 'Perempuan' ? 'selected' : '' }}>Perempuan
-                            </option>
-                        </select>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="tempat_lahir" class="block text-sm font-medium text-gray-700">Tempat Lahir</label>
-                        <input type="text" id="tempat_lahir" name="tempat_lahir"
-                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                            value="{{ old('tempat_lahir') }}" required>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="tgl_lahir" class="block text-sm font-medium text-gray-700">Tanggal Lahir</label>
-                        <input type="date" id="tgl_lahir" name="tgl_lahir"
-                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                            value="{{ old('tgl_lahir') }}" required>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="alamat" class="block text-sm font-medium text-gray-700">Alamat</label>
-                        <input type="text" id="alamat" name="alamat"
-                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                            value="{{ old('alamat') }}" required>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="no_hp" class="block text-sm font-medium text-gray-700">No. HP</label>
-                        <input type="text" id="no_hp" name="no_hp"
-                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                            value="{{ old('no_hp') }}" required>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="id_tahun_lulus" class="block text-sm font-medium text-gray-700">Tahun Lulus</label>
-                        <select name="id_tahun_lulus" id="id_tahun_lulus"
-                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                            required>
-                            @forelse ($years as $year)
-                                <option value="{{ $year->id_tahun_lulus }}"
-                                    {{ old('id_tahun_lulus') == $year->id_tahun_lulus ? 'selected' : '' }}>
-                                    {{ $year->tahun_lulus }}</option>
-                            @empty
-                                <option value="">Tidak ada data tahun lulus</option>
-                            @endforelse
-                        </select>
-                    </div>
-                    <div class="mb-4">
-                        <label for="konsentrasi_keahlian" class="block text-sm font-medium text-gray-700">Konsentrasi
-                            Keahlian</label>
-                        <select name="id_konsentrasi_keahlian" id="id_konsentrasi_keahlian"
-                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                            required>
-                            @forelse ($concentrations as $c)
-                                <option value="{{ $c->id_konsentrasi_keahlian }}"
-                                    {{ old('id_konsentrasi_keahlian') == $c->id_konsentrasi_keahlian ? 'selected' : '' }}>
-                                    {{ $c->konsentrasi_keahlian }}</option>
-                            @empty
-                                <option value="">Tidak ada data tahun lulus</option>
-                            @endforelse
-                        </select>
-                    </div>
-                    <div class="mb-4">
-                        <label for="id_status_alumni" class="block text-sm font-medium text-gray-700">Status
-                            Alumni</label>
-                        <select name="id_status_alumni" id="id_status_alumni"
-                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                            required>
-                            @forelse ($statuses as $s)
-                                <option value="{{ $s->id_status_alumni }}"
-                                    {{ old('id_status_alumni') == $s->id_status_alumni ? 'selected' : '' }}>
-                                    {{ $s->status }}</option>
-                            @empty
-                                <option value="">Tidak ada data tahun lulus</option>
-                            @endforelse
-                        </select>
-                    </div>
-
-                    <!-- Existing fields -->
-                    <!-- [Insert existing fields here] -->
-
-                    <!-- Tracer Kuliah Fields -->
-                    <div class="mb-4">
-                        <label for="tracer_kuliah_kampus" class="block text-sm font-medium text-gray-700">Kampus</label>
-                        <input type="text" id="tracer_kuliah_kampus" name="tracer_kuliah_kampus"
-                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                            value="{{ old('tracer_kuliah_kampus') }}" required>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="tracer_kuliah_status" class="block text-sm font-medium text-gray-700">Status
-                            Kuliah</label>
-                        <input type="text" id="tracer_kuliah_status" name="tracer_kuliah_status"
-                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                            value="{{ old('tracer_kuliah_status') }}" required>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="tracer_kuliah_jenjang" class="block text-sm font-medium text-gray-700">Jenjang</label>
-                        <input type="text" id="tracer_kuliah_jenjang" name="tracer_kuliah_jenjang"
-                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                            value="{{ old('tracer_kuliah_jenjang') }}" required>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="tracer_kuliah_jurusan" class="block text-sm font-medium text-gray-700">Jurusan</label>
-                        <input type="text" id="tracer_kuliah_jurusan" name="tracer_kuliah_jurusan"
-                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                            value="{{ old('tracer_kuliah_jurusan') }}" required>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="tracer_kuliah_linier" class="block text-sm font-medium text-gray-700">Linier dengan
-                            Jurusan</label>
-                        <input type="text" id="tracer_kuliah_linier" name="tracer_kuliah_linier"
-                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                            value="{{ old('tracer_kuliah_linier') }}" required>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="tracer_kuliah_alamat" class="block text-sm font-medium text-gray-700">Alamat
-                            Kampus</label>
-                        <input type="text" id="tracer_kuliah_alamat" name="tracer_kuliah_alamat"
-                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                            value="{{ old('tracer_kuliah_alamat') }}" required>
-                    </div>
-
-                    <!-- Tracer Kerja Fields -->
-                    <div class="mb-4">
-                        <label for="tracer_kerja_pekerjaan"
-                            class="block text-sm font-medium text-gray-700">Pekerjaan</label>
-                        <input type="text" id="tracer_kerja_pekerjaan" name="tracer_kerja_pekerjaan"
-                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                            value="{{ old('tracer_kerja_pekerjaan') }}" required>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="tracer_kerja_nama" class="block text-sm font-medium text-gray-700">Nama
-                            Perusahaan</label>
-                        <input type="text" id="tracer_kerja_nama" name="tracer_kerja_nama"
-                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                            value="{{ old('tracer_kerja_nama') }}" required>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="tracer_kerja_jabatan" class="block text-sm font-medium text-gray-700">Jabatan</label>
-                        <input type="text" id="tracer_kerja_jabatan" name="tracer_kerja_jabatan"
-                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                            value="{{ old('tracer_kerja_jabatan') }}" required>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="tracer_kerja_status" class="block text-sm font-medium text-gray-700">Status
-                            Kerja</label>
-                        <input type="text" id="tracer_kerja_status" name="tracer_kerja_status"
-                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                            value="{{ old('tracer_kerja_status') }}" required>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="tracer_kerja_lokasi" class="block text-sm font-medium text-gray-700">Lokasi
-                            Kerja</label>
-                        <input type="text" id="tracer_kerja_lokasi" name="tracer_kerja_lokasi"
-                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                            value="{{ old('tracer_kerja_lokasi') }}" required>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="tracer_kerja_alamat" class="block text-sm font-medium text-gray-700">Alamat
-                            Kerja</label>
-                        <input type="text" id="tracer_kerja_alamat" name="tracer_kerja_alamat"
-                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                            value="{{ old('tracer_kerja_alamat') }}" required>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="tracer_kerja_tgl_mulai" class="block text-sm font-medium text-gray-700">Tanggal Mulai
-                            Kerja</label>
-                        <input type="date" id="tracer_kerja_tgl_mulai" name="tracer_kerja_tgl_mulai"
-                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                            value="{{ old('tracer_kerja_tgl_mulai') }}" required>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="tracer_kerja_gaji" class="block text-sm font-medium text-gray-700">Gaji</label>
-                        <input type="text" id="tracer_kerja_gaji" name="tracer_kerja_gaji"
-                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                            value="{{ old('tracer_kerja_gaji') }}" required>
+                    <!-- Tracer Kerja Data -->
+                    <h3 class="text-2xl font-semibold text-gray-800 mt-8">Tracer Kerja</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="form-group">
+                            <label for="tracer_kerja_pekerjaan"
+                                class="text-sm font-medium text-gray-600">Pekerjaan</label>
+                            <input type="text" name="tracer_kerja_pekerjaan" id="tracer_kerja_pekerjaan"
+                                class="w-full p-3 border border-gray-300 rounded-md" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tracer_kerja_nama" class="text-sm font-medium text-gray-600">Nama
+                                Perusahaan</label>
+                            <input type="text" name="tracer_kerja_nama" id="tracer_kerja_nama"
+                                class="w-full p-3 border border-gray-300 rounded-md" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tracer_kerja_jabatan" class="text-sm font-medium text-gray-600">Jabatan</label>
+                            <input type="text" name="tracer_kerja_jabatan" id="tracer_kerja_jabatan"
+                                class="w-full p-3 border border-gray-300 rounded-md" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tracer_kerja_status" class="text-sm font-medium text-gray-600">Status
+                                Pekerjaan</label>
+                            <input type="text" name="tracer_kerja_status" id="tracer_kerja_status"
+                                class="w-full p-3 border border-gray-300 rounded-md" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tracer_kerja_lokasi" class="text-sm font-medium text-gray-600">Lokasi
+                                Kerja</label>
+                            <input type="text" name="tracer_kerja_lokasi" id="tracer_kerja_lokasi"
+                                class="w-full p-3 border border-gray-300 rounded-md" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tracer_kerja_alamat" class="text-sm font-medium text-gray-600">Alamat
+                                Kerja</label>
+                            <input type="text" name="tracer_kerja_alamat" id="tracer_kerja_alamat"
+                                class="w-full p-3 border border-gray-300 rounded-md" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tracer_kerja_tgl_mulai" class="text-sm font-medium text-gray-600">Tanggal Mulai
+                                Kerja</label>
+                            <input type="date" name="tracer_kerja_tgl_mulai" id="tracer_kerja_tgl_mulai"
+                                class="w-full p-3 border border-gray-300 rounded-md" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tracer_kerja_gaji" class="text-sm font-medium text-gray-600">Gaji</label>
+                            <input type="text" name="tracer_kerja_gaji" id="tracer_kerja_gaji"
+                                class="w-full p-3 border border-gray-300 rounded-md" required>
+                        </div>
                     </div>
 
                     <!-- Submit Button -->
-                    <button type="submit"
-                        class="w-full py-3 px-6 bg-indigo-600 text-white font-semibold rounded-md hover:bg-indigo-700 transition duration-200">Daftar
-                        Alumni</button>
+                    <div class="mt-6">
+                        <button type="submit"
+                            class="w-full bg-blue-600 text-white py-3 px-4 rounded-md shadow-md text-lg font-semibold hover:bg-blue-700 focus:ring-2 focus:ring-blue-500">Daftar</button>
+                    </div>
+
+                    <!-- Tombol Kembali -->
+                    <div class="mt-6 flex justify-between">
+                        <a href="{{ route('alumni.dashboard') }}"
+                            class="w-full bg-gray-500 text-white py-3 px-4 rounded-md shadow-md text-lg font-semibold hover:bg-gray-600 focus:ring-2 focus:ring-gray-400 text-center">Kembali
+                            ke Dashboard</a>
+                    </div>
                 </div>
             </form>
         </div>

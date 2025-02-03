@@ -31,8 +31,6 @@ class Alumni extends Authenticatable
         'akun_fb',
         'akun_ig',
         'akun_tiktok',
-        'email',
-        'password',
         'status_login',
         'id_tahun_lulus',
         'id_konsentrasi_keahlian',

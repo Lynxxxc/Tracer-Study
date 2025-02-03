@@ -15,6 +15,7 @@ class TestimoniController extends Controller
         return view('admin.testimoni.index', compact('testimonis'));
     }
 
+
     public function create()
     {
         $alumni = Alumni::all();
@@ -62,4 +63,5 @@ class TestimoniController extends Controller
 
         return redirect()->route('admin.testimoni.index')->with('success', 'Testimoni berhasil dihapus');
     }
+
 }

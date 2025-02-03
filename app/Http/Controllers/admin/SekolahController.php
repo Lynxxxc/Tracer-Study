@@ -61,10 +61,4 @@ class SekolahController extends Controller
         return redirect()->route('admin.sekolah.index')->with('success', 'Sekolah berhasil diubah.');
     }
 
-    // Delete a sekolah
-    public function destroy(Sekolah $sekolah)
-    {
-        $sekolah->delete();
-        return redirect()->route('admin.sekolah.index')->with('success', 'Sekolah berhasil dihapus.');
-    }
 }

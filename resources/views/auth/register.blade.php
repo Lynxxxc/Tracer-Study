@@ -20,8 +20,8 @@
                 <div>
                     <label for="name" class="block text-gray-700 font-medium">Nama</label>
                     <input type="text" name="name" id="name"
-                        class="w-full p-3 border border-gray-300 rounded-md" placeholder="Masukkan nama"
-                        required value="{{ old('name') }}">
+                        class="w-full p-3 border border-gray-300 rounded-md" placeholder="Masukkan nama" required
+                        value="{{ old('name') }}">
                     @error('name')
                         <p class="text-red-500 text-sm">{{ $message }}</p>
                     @enderror
@@ -58,18 +58,14 @@
 
                 <div class="flex justify-between items-center space-x-4">
                     <button type="submit"
-                        class="w-full py-3 bg-teal-600 text-white rounded-md hover:bg-teal-700 transition duration-300">
+                        class="w-full py-3 bg-blue-600 text-white rounded-md hover:bg-teal-700 transition duration-300">
                         Daftar
-                    </button>
-                    <button type="button" id="saveButton"
-                        class="w-full py-3 bg-blue-500 text-white rounded-md hover:bg-gray-600 transition duration-300">
-                        Register
                     </button>
                 </div>
 
             </form>
             <p class="text-center text-gray-600">Sudah memiliki akun? <a href="{{ route('login') }} "
-                    class="text-teal-600 hover:text-teal-700">Masuk</a></p>
+                    class="text-blue-900 hover:text-teal-700">Masuk</a></p>
         </div>
     </div>
 

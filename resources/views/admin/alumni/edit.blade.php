@@ -121,17 +121,6 @@
                     @enderror
                 </div>
 
-                <!-- Email -->
-                <div class="mb-6">
-                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                    <input type="email" name="email" id="email"
-                        class="input w-full p-4 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
-                        value="{{ old('email', $alumni->email) }}" required>
-                    @error('email')
-                        <span class="text-red-600 text-sm">{{ $message }}</span>
-                    @enderror
-                </div>
-
                 <!-- Akun FB, IG, TikTok -->
                 <div class="mb-6">
                     <label for="akun_fb" class="block text-sm font-medium text-gray-700">Akun Facebook</label>
@@ -152,17 +141,6 @@
                     <input type="text" name="akun_tiktok" id="akun_tiktok"
                         class="input w-full p-4 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
                         value="{{ old('akun_tiktok', $alumni->akun_tiktok) }}">
-                </div>
-
-                <!-- Password -->
-                <div class="mb-6">
-                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                    <input type="password" name="password" id="password"
-                        class="input w-full p-4 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
-                        value="{{ old('password') }}">
-                    @error('password')
-                        <span class="text-red-600 text-sm">{{ $message }}</span>
-                    @enderror
                 </div>
 
                 <!-- Submit -->

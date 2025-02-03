@@ -35,9 +35,11 @@
                     </div>
                     <div class="p-6">
                         <h3 class="text-2xl font-semibold text-blue-700">Data Sekolah</h3>
-                        <p class="text-gray-600 mt-4">Kelola data penting seperti bidang, program, dan konsentrasi keahlian.
+                        <p class="text-gray-600 mt-4">Kelola data sekolah.
                         </p>
-                        <a href="#" class="mt-4 block text-blue-600 hover:underline">Kelola Data Sekolah</a>
+                        <a href="{{ route('admin.sekolah.index') }}" class="mt-4 block text-blue-600 hover:underline">Kelola
+                            Data
+                            Sekolah</a>
                     </div>
                 </div>
 
@@ -53,8 +55,9 @@
                     </div>
                     <div class="p-6">
                         <h3 class="text-2xl font-semibold text-green-700">Manajemen Alumni</h3>
-                        <p class="text-gray-600 mt-4">Lacak detail alumni, status, dan peluang jaringan.</p>
-                        <a href="#" class="mt-4 block text-green-600 hover:underline">Kelola Alumni</a>
+                        <p class="text-gray-600 mt-4">Lacak detail alumni, dan status alumni.</p>
+                        <a href="{{ route('admin.alumni.index') }}" class="mt-4 block text-green-600 hover:underline">Kelola
+                            Alumni</a>
                     </div>
                 </div>
 
@@ -69,9 +72,11 @@
                         </svg>
                     </div>
                     <div class="p-6">
-                        <h3 class="text-2xl font-semibold text-yellow-700">Laporan</h3>
-                        <p class="text-gray-600 mt-4">Lihat laporan detail terkait alumni, karier, dan lainnya.</p>
-                        <a href="#" class="mt-4 block text-yellow-600 hover:underline">Lihat Laporan</a>
+                        <h3 class="text-2xl font-semibold text-yellow-700">Testimoni</h3>
+                        <p class="text-gray-600 mt-4">Lihat testimoni alumni.</p>
+                        <a href="{{ route('admin.testimoni.index') }}"
+                            class="mt-4 block text-green-600 hover:underline">lihat
+                            Testimoni Alumni</a>
                     </div>
                 </div>
             </div>

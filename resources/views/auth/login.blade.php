@@ -47,7 +47,7 @@
             </form>
 
             <p class="text-center text-gray-600">Belum punya akun? <a href="{{ route('register') }}"
-                    class="text-teal-600 hover:text-teal-700">Daftar di sini</a></p>
+                    class="text-blue-900 hover:text-teal-700">Daftar di sini</a></p>
         </div>
     </div>
 

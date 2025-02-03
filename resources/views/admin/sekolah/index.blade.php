@@ -9,10 +9,6 @@
             <div
                 class="bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-t-lg px-6 py-4 flex justify-between items-center">
                 <h1 class="text-2xl font-bold">Daftar Sekolah</h1>
-                <a href="{{ route('admin.sekolah.create') }}"
-                    class="bg-white text-blue-600 font-semibold py-2 px-5 rounded-lg shadow hover:bg-blue-100 transition duration-300">
-                    Tambah Sekolah
-                </a>
             </div>
 
             @if (session('success'))
@@ -55,18 +51,6 @@
                                             class="inline-flex items-center bg-yellow-500 text-white font-semibold py-2 px-4 rounded-lg shadow hover:bg-yellow-600 transition duration-300">
                                             <i class="fas fa-edit mr-2"></i> Edit
                                         </a>
-
-                                        <!-- Delete Form -->
-                                        <form action="{{ route('admin.sekolah.destroy', $sekolah->id_sekolah) }}"
-                                            method="POST" class="inline"
-                                            onsubmit="return confirm('Apakah Anda yakin ingin menghapus data sekolah ini?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit"
-                                                class="inline-flex items-center bg-red-500 text-white font-semibold py-2 px-4 rounded-lg shadow hover:bg-red-600 transition duration-300">
-                                                <i class="fas fa-trash mr-2"></i> Hapus
-                                            </button>
-                                        </form>
                                     </div>
                                 </td>
                             </tr>

@@ -3,34 +3,46 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Alumni;
 
 class ProfileController extends Controller
 {
-    // Menampilkan halaman Data Diri
-    public function index()
+    /**
+     * Menampilkan halaman data diri.
+     */
+    public function dataDiri()
     {
-        return view('profile.data-diri');
+        $user = Auth::user();
+        $alumni = Alumni::where('user_id', $user->id)->first();
+
+        return view('tracerstudy.data_diri', compact('alumni'));
     }
 
-    // Menangani pembaruan data diri
-    public function update(Request $request)
+    /**
+     * Fungsi untuk update profile alumni.
+     */
+    public function updateProfile(Request $request)
     {
-        // Melakukan validasi input
+        $user = Auth::user();
+        $alumni = Alumni::where('user_id', $user->id)->first();
+
+        // Jika belum mengisi Tracer Study, tampilkan alert dan redirect ke pengisian data
+        if (!$alumni) {
+            return redirect()->route('tracerstudy.create')->with('warning', 'Harap isi Tracer Study terlebih dahulu sebelum memperbarui profil.');
+        }
+
+        // Validasi data input
         $validatedData = $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'address' => 'required|string|max:255',
-            'phone_number' => 'required|numeric',
-            'email' => 'required|email|max:255',
+            'nama_depan' => 'required|string|max:255',
+            'nama_belakang' => 'required|string|max:255',
+            'alamat' => 'required|string|max:255',
+            'no_hp' => 'required|string|max:20',
         ]);
 
-        // Mengambil user yang sedang login
-        $user = auth()->user();
+        // Update data alumni
+        $alumni->update($validatedData);
 
-        // Memperbarui data diri pengguna dengan data yang sudah tervalidasi
-        $user->update($validatedData);
-
-        // Redirect ke halaman profile dengan pesan sukses
-        return redirect()->route('profile')->with('status', 'Profil berhasil diperbarui');
+        return redirect()->route('tracerstudy.data_diri')->with('status', 'Data berhasil diperbarui');
     }
 }
